@@ -37,7 +37,9 @@ public class PlayerController {
     ) {
         final List<Player> players = playerService.getAllPlayers(name, title, race, profession,
                 after, before, banned, minExperience, maxExperience, minLevel, maxLevel);
+
         final List<Player> sortedPlayers = playerService.sortPlayers(players, order);
+
         return playerService.getPage(sortedPlayers, pageNumber, pageSize);
     }
 
@@ -67,9 +69,7 @@ public class PlayerController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (player.getBanned() == null) {
-            player.setBanned(false);
-        }
+        if (player.isBanned() == null) player.setBanned(false);
 
         final int level = playerService.calculateLevel(player.getExperience());
         player.setLevel(level);
@@ -96,9 +96,7 @@ public class PlayerController {
 
         final Player player = playerService.getPlayer(id);
 
-        if (player == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        if (player == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(player, HttpStatus.OK);
     }

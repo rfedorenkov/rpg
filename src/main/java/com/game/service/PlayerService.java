@@ -40,7 +40,7 @@ public class PlayerService {
             if (profession != null && player.getProfession() != profession) return;
             if (after != null && player.getBirthday().before(afterDate)) return;
             if (before != null && player.getBirthday().after(beforeDate)) return;
-            if (banned != null && player.getBanned().booleanValue() != banned.booleanValue()) return;
+            if (banned != null && player.isBanned().booleanValue() != banned.booleanValue()) return;
             if (minExperience != null && player.getExperience().compareTo(minExperience) < 0) return;
             if (maxExperience != null && player.getExperience().compareTo(maxExperience) > 0) return;
             if (minLevel != null && player.getLevel().compareTo(minLevel) < 0) return;
@@ -128,8 +128,8 @@ public class PlayerService {
             }
         }
 
-        if (newPlayer.getBanned() != null) {
-            oldPlayer.setBanned(newPlayer.getBanned());
+        if (newPlayer.isBanned() != null) {
+            oldPlayer.setBanned(newPlayer.isBanned());
             isPossiblePlayerUpdate = true;
         }
 
